@@ -1,24 +1,27 @@
-function write(filePath, string) {
-    const fs = require('fs');
-    fs.writeFileSync(filePath, string);
-}
-function read(filePath) {
-    const fs = require('fs');
-    let file = fs.readFileSync(filePath);
-    let string = file.toString();
-    return string;
+
+class FileFunc{
+    static write(filePath, string) {
+        const fs = require('fs');
+        fs.writeFileSync(filePath, string);
+    }
+    static read(filePath) {
+        const fs = require('fs');
+        let file = fs.readFileSync(filePath);
+        let string = file.toString();
+        return string;
+    }
 }
 class File {
     constructor(filePath) {
-        this.text = read(filePath);
+        this.text = FileFunc.read(filePath);
     }
     save(filePath) {
-        write(filePath, this.text);
+        FileFunc.write(filePath, this.text);
         return;
     }
     saveWithoutSpaces(filePath) {
         let txt = this.text.replace(/ /g, "");
-        write(filePath, txt);
+        FileFunc.write(filePath, txt);
         return;
     }
     saveChanged(filePath){
@@ -29,7 +32,7 @@ class File {
         txt = txt.replace(/a/g, "l");
         txt = txt.replace(/e/g, "a");
         txt = txt.replace(/i/g, "e");
-        write(filePath, txt);
+        FileFunc.write(filePath, txt);
         return;
     }
 }
