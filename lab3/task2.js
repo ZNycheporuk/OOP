@@ -5,9 +5,9 @@
 
 //Prototype
 
-// class User {
-//     constructor() { }
-// }
+class User {
+    constructor() { }
+}
 function User() { }
 
 User.prototype.name;
