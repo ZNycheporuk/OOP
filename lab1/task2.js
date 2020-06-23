@@ -1,10 +1,24 @@
-class Composite {
+class IComposite {
     constructor(name) {
+        this.name = name;
+    }
+    add() { };
+    get() { };
+    count() { };
+    getCodes() { };
+}
+class Composite extends IComposite{
+    constructor(name) {
+        super();
         this.name = name;
         this.contains = [];
     }
     add(object) {
-        this.contains.push(object);
+        if (object instanceof (IComposite)) {
+            this.contains.push(object);
+            return
+        }
+        console.log('\"' + object + '\"', "is not instance of IComposite")
     }
     get() {
         console.log(JSON.stringify(this, null, 2));
@@ -25,7 +39,7 @@ class Composite {
     }
 }
 
-class Book {
+class Book extends IComposite {
     static books = {};
 
     static counter = {
@@ -48,6 +62,7 @@ class Book {
     }
 
     constructor(name) {
+        super();
         this.name = name;
         this.id = Book.counter.nextId++;
         this.code = Book.getCode(name);
@@ -82,6 +97,9 @@ library.add(section2);
 section.add(rack1);
 section.add(rack2);
 section2.add(rack3);
+
+section.add("Not Composite");
+
 
 rack1.add(shelf1);
 rack1.add(shelf2);
